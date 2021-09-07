@@ -1,0 +1,9 @@
+.btn {
+  width: fit-content;
+  width: -moz-max-content;
+}
+
+.thumbnail {
+  width: 130px;
+  height: 130px;
+}
