@@ -64,9 +64,11 @@ export default function TemplateBlogs({ posts, title, initialDisplayPosts = [], 
                     year: 'numeric',
                   })
             const slug =
-              (title == null ? '' : title).replace(' ', '-').replace(/[^a-zA-Z ]/g, '') +
+              (title == null ? '' : title).replace(' ', '-').replace(/[^a-zA-Z- ]/g, '') +
               '-' +
-              date.replaceAll('/', '-')
+              date.replaceAll('/', '-') +
+              '-id=' +
+              frontMatter.sys.id
 
             const _tags = tags.replace('-', ' ').split(',')
 

@@ -8,12 +8,15 @@ const content_token = process.env.CONTENTFUL_TOKEN
 const client = createClient({ space: space, accessToken: content_token })
 
 async function getPosts() {
-  const res = await client.getEntries({ content_type: 'blog' })
-  console.log(res)
+  const res = await (await client.getEntries({ content_type: 'blog' })).items
+  return res
 }
 
 export async function getStaticPaths() {
   const _posts = await getPosts()
+  console.log('posts')
+  console.log(_posts)
+
   const paths = _posts.map((v) => {
     const f = v.fields
 
@@ -27,9 +30,11 @@ export async function getStaticPaths() {
           })
 
     const slug =
-      (f.title == null ? '' : f.title).replace(' ', '-').replace(/[^a-zA-Z ]/g, '') +
+      (f.title == null ? '' : f.title).replace(' ', '-').replace(/[^a-zA-Z- ]/g, '') +
       '-' +
-      date.replaceAll('/', '-')
+      date.replaceAll('/', '-') +
+      '-id=' +
+      v.sys.id
 
     return {
       params: {
@@ -47,21 +52,26 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const { params } = context
   //get params from context (context.params)
-  console.log('params')
-  console.log(params)
+  // console.log('params')
+  // console.log(params)
+
+  const _id = params.slug.substr(params.slug.indexOf('id=')).replace('id=', '')
+  // console.log('id:' + _id)
+
+  // const router = useRouter()
+  // const { id } = router.query
+
   const { items } = await client.getEntries({
     content_type: 'blog',
-    'fields.title': params.title,
-    'fields.tags': params.tags,
+    'sys.id': _id,
+    // 'fields.date': date,
   })
 
   return { props: { post: items[0] } }
 }
 
 const Post = ({ post }) => {
-  const router = useRouter()
-  const { slug, tags } = router.query
-  // console.log(post)
+  console.log(post)
 
   return (
     <div>
