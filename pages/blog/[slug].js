@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { createClient } from 'contentful'
 import siteMetadata from '@/data/siteMetadata'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -43,28 +44,17 @@ export async function getStaticPaths() {
     }
   })
 
-  console.log('Caminho')
-  console.log(paths)
-
   return { paths, fallback: false }
 }
 
 export async function getStaticProps(context) {
   const { params } = context
-  //get params from context (context.params)
-  // console.log('params')
-  // console.log(params)
 
   const _id = params.slug.substr(params.slug.indexOf('id=')).replace('id=', '')
-  // console.log('id:' + _id)
-
-  // const router = useRouter()
-  // const { id } = router.query
 
   const { items } = await client.getEntries({
     content_type: 'blog',
     'sys.id': _id,
-    // 'fields.date': date,
   })
 
   return { props: { post: items[0] } }
@@ -75,8 +65,10 @@ const Post = ({ post }) => {
 
   return (
     <div>
-      <p>{/* Title: {slug} | tags: {tags} */}</p>
-      <p>{post.fields.title}</p>
+      <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
+        {post.fields.title}
+      </h2>
+      <div className="Texto">{documentToReactComponents(post.fields.text)}</div>
     </div>
   )
 }
