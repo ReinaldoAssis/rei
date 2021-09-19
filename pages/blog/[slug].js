@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { createClient } from 'contentful'
 import siteMetadata from '@/data/siteMetadata'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import PostLayout from '@/layouts/PostLayout'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -63,12 +64,22 @@ export async function getStaticProps(context) {
 const Post = ({ post }) => {
   console.log(post)
 
+  const component = {
+    title: post.fields.title,
+    tags: post.fields.tags.split(','),
+    date: post.fields.date,
+    slug: '',
+  }
+
+  const child = documentToReactComponents(post.fields.text)
+
   return (
     <div>
       <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
         {post.fields.title}
       </h2>
-      <div className="Texto">{documentToReactComponents(post.fields.text)}</div>
+      {/* <div className="Texto">{}</div> */}
+      <PostLayout frontMatter={component} children={child} />
     </div>
   )
 }
