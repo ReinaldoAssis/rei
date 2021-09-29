@@ -75,9 +75,9 @@ const Post = ({ post }) => {
 
   return (
     <div>
-      <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
+      {/* <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
         {post.fields.title}
-      </h2>
+      </h2> */}
       {/* <div className="Texto">{}</div> */}
       <PostLayout frontMatter={component} children={child} />
     </div>

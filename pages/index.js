@@ -50,13 +50,13 @@ export default function Home({ posts }) {
               &lt;Rei&gt;
             </h1>
             <h1 className="text-3xl md:text-2xl font-bold lg:ml-16" style={{ padding: 10 }}>
-              Um programador em desenvolvimento
+              A developer under development
             </h1>
             <h1 className="text-3xl font-extrabold" style={{ color: '#6C63FF' }}>
-              &lt;Rei/&gt;
+              &lt;/Rei&gt;
             </h1>
             <h1 className="text-lg font-bold" style={{ color: '#28385C', marginTop: 10 }}>
-              Programando um mundo melhor <i>since</i> 2003.
+              Programming a better world <i>since</i> 2003.
             </h1>
             <Link href="/projects">
               <div
@@ -67,7 +67,7 @@ export default function Home({ posts }) {
                 }}
                 className="mt-16 bg-indigo-600 btn transform transition duration-300 hover:scale-105 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full"
               >
-                Visitar projetos
+                Project's showcase
               </div>
             </Link>
           </div>
