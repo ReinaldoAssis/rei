@@ -25,7 +25,7 @@ const en = [
 ]
 
 const Interesses = () => (
-  <div className="grid" style={{ justifyItems: 'center', alignContent: 'start' }}>
+  <div className="grid mt-14 lg:mt-0" style={{ justifyItems: 'center', alignContent: 'start' }}>
     <TextoColorido
       texto="My"
       impacto="interests"

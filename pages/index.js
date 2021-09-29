@@ -41,14 +41,15 @@ export default function Home({ posts }) {
         }}
         className="mb-4 dark:bg-roxo bg-gray-30 "
       >
-        <div className="grid grid-cols-2">
+        <div className="grid sm:grid-cols-2">
           {/* PAINEL DE LANDING*/}
-          <Image alt="" src="/static/images/feeling_proud.svg" width={600} height={400} />
-          <div className="flex-initial">
-            <h1 className="text-3xl font-extrabold" style={{ color: '#6C63FF' }}>
+          <Image alt="" src="/static/images/feeling_proud.svg" width={600} height={400} />{' '}
+          {/*IMAGE*/}
+          <div className="flex-initial md:ml-6">
+            <h1 className="text-3xl font-extrabold mt-6 lg:mt-0" style={{ color: '#6C63FF' }}>
               &lt;Rei&gt;
             </h1>
-            <h1 className="text-3xl font-bold" style={{ marginLeft: 50, padding: 10 }}>
+            <h1 className="text-3xl md:text-2xl font-bold lg:ml-16" style={{ padding: 10 }}>
               Um programador em desenvolvimento
             </h1>
             <h1 className="text-3xl font-extrabold" style={{ color: '#6C63FF' }}>
@@ -61,11 +62,10 @@ export default function Home({ posts }) {
               <div
                 style={{
                   width: 'fit-content',
-                  marginTop: 60,
                   boxShadow: '0px 6px 7px rgba(0,0,0,0.3)',
                   userSelect: 'none',
                 }}
-                className="bg-indigo-600 btn transform transition duration-300 hover:scale-105 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full"
+                className="mt-16 bg-indigo-600 btn transform transition duration-300 hover:scale-105 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full"
               >
                 Visitar projetos
               </div>
@@ -84,7 +84,7 @@ export default function Home({ posts }) {
           </Link>
         </div>
       )}
-      <div className="grid grid-cols-2 content-center " style={{ justifyContent: 'center' }}>
+      <div className="grid lg:grid-cols-2 content-center " style={{ justifyContent: 'center' }}>
         <Ufal />
         <Interesses />
       </div>
