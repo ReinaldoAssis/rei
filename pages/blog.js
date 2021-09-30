@@ -1,4 +1,4 @@
-import { getAllFilesFrontMatter } from '@/lib/mdx'
+// import { getAllFilesFrontMatter } from '@/lib/mdx'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
 import { PageSeo } from '@/components/SEO'
@@ -11,8 +11,8 @@ const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
-  const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
+  // const posts = await getAllFilesFrontMatter('blog')
+  // const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
   // const pagination = {
   //   currentPage: 1,
   //   totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
@@ -29,10 +29,10 @@ export async function getStaticProps() {
     totalPages: Math.ceil(_posts.length / POSTS_PER_PAGE),
   }
 
-  return { props: { initialDisplayPosts, _posts, pagination } }
+  return { props: { _posts, pagination } }
 }
 
-export default function Blog({ _posts, initialDisplayPosts, pagination }) {
+export default function Blog({ _posts, pagination }) {
   return (
     <>
       <PageSeo

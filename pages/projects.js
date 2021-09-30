@@ -1,11 +1,35 @@
 import Image from 'next/image'
 import siteMetadata from '@/data/siteMetadata'
-import projectsData from '@/data/projectsData'
 import Link from '@/components/Link'
 import Card from '@/components/Card'
+import { createClient } from 'contentful'
 import { PageSeo } from '@/components/SEO'
 
-export default function Projects() {
+const space = process.env.CONTENTFUL_SPACE_ID
+const content_token = process.env.CONTENTFUL_TOKEN
+
+export async function getStaticProps() {
+  const client = createClient({ space: space, accessToken: content_token })
+
+  const res = await client.getEntries({ content_type: 'projects' })
+  const projects = res.items
+  console.log(projects)
+
+  var projectsData = []
+  projects.map((p) => {
+    projectsData.push({
+      title: p.fields.title,
+      description: p.fields.description,
+      href: '' + p.fields.url,
+      imgSrc: 'https:' + p.fields.thumbnail.fields.file.url,
+    })
+    console.log(p.fields.title)
+  })
+
+  return { props: { projectsData } }
+}
+
+export default function Projects({ projectsData }) {
   return (
     <>
       <PageSeo
@@ -18,9 +42,7 @@ export default function Projects() {
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Projects
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Showcase your projects with a hero image (16 x 9)
-          </p>
+          {/* <p className="text-lg leading-7 text-gray-500 dark:text-gray-400"></p> */}
         </div>
         <div className="container py-12">
           <div className="flex flex-wrap -m-4">
