@@ -43,7 +43,7 @@ export default function Home({ posts }) {
       >
         <div className="grid sm:grid-cols-2">
           {/* PAINEL DE LANDING*/}
-          <Image alt="" src="/static/images/feeling_proud.png" width={600} height={400} />{' '}
+          <Image alt="" src="/static/images/feeling_proud.svg" width={600} height={400} />{' '}
           {/*IMAGE*/}
           <div className="flex-initial md:ml-6">
             <h1 className="text-3xl font-extrabold mt-6 lg:mt-0" style={{ color: '#6C63FF' }}>
