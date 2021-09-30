@@ -34,7 +34,7 @@ export async function getStaticPaths() {
     const slug =
       (f.title == null ? '' : f.title).replace(' ', '-').replace(/[^a-zA-Z- ]/g, '') +
       '-' +
-      date.replaceAll('/', '-') +
+      date.replace(/\//g, '-') +
       '-id=' +
       v.sys.id
 
