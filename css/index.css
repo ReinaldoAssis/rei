@@ -8,6 +8,27 @@
   height: 130px;
 }
 
+@media (max-width: 480px) {
+  .thumbnail {
+    width: 90px;
+    height: 90px;
+  }
+
+  .textodata {
+    display: none;
+  }
+
+  .textodataMobile {
+    display: block;
+  }
+}
+
+@media (min-width: 481px) {
+  .textodataMobile {
+    display: none;
+  }
+}
+
 /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .home_img {

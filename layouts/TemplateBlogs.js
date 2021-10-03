@@ -82,7 +82,7 @@ export default function TemplateBlogs({ posts, title, initialDisplayPosts = [], 
             return (
               <li key={slug} className="py-4">
                 <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                  <div className="flex flex-wrap content-center ">
+                  <div className="flex flex-wrap content-center">
                     <div className="thumbnail flex-initial shadow-md mr-5">
                       <Image
                         src={'https:' + thumb.file.url}
@@ -92,6 +92,16 @@ export default function TemplateBlogs({ posts, title, initialDisplayPosts = [], 
                         height={thumb.file.details.image.height}
                         className="rounded-lg"
                       />
+                      <div className="justify-self-center">
+                        <dl>
+                          <dt className="sr-only">Published on</dt>
+                          <div className="textodataMobile mb-8">
+                            <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                              <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
+                            </dd>
+                          </div>
+                        </dl>
+                      </div>
                     </div>
                     <div className="space-y-3 xl:col-span-3 flex-shrink flex-1">
                       <div>
@@ -112,11 +122,16 @@ export default function TemplateBlogs({ posts, title, initialDisplayPosts = [], 
                     </div>
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>
-                          {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                        </time>
-                      </dd>
+                      <div className="textodata">
+                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                          <time dateTime={date}>
+                            {new Date(date).toLocaleDateString(
+                              siteMetadata.locale,
+                              postDateTemplate
+                            )}
+                          </time>
+                        </dd>
+                      </div>
                     </dl>
                   </div>
                 </article>
