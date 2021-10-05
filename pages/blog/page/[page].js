@@ -66,6 +66,7 @@ export default function PostPage({ _posts, initialDisplayPosts, pagination }) {
       <TemplateBlogs
         posts={initialDisplayPosts}
         pagination={pagination}
+        allPosts={_posts}
         title="All Posts"
       ></TemplateBlogs>
     </>

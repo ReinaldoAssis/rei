@@ -44,6 +44,7 @@ export default function Blog({ _posts, pagination }) {
       <TemplateBlogs
         posts={_posts.slice(0, POSTS_PER_PAGE)}
         pagination={pagination}
+        allPosts={_posts}
         title="All Posts"
       ></TemplateBlogs>
     </>

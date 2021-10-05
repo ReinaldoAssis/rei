@@ -10,24 +10,23 @@ const postDateTemplate = { year: 'numeric', month: 'long', day: 'numeric' }
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
 
-export default function TemplateBlogs({ posts, title, initialDisplayPosts = [], pagination }) {
+export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
   const [searchValue, setSearchValue] = useState('')
 
-  // console.log(filteredBlogPosts)
-  let filteredBlogPosts = []
-  // // If initialDisplayPosts exist, display it if no searchValue is specified
-  let displayPosts = posts.length > 0 && !searchValue ? posts : filteredBlogPosts
+  console.log(allPosts)
 
-  function FilterPosts() {
-    console.log('filter')
-    filteredBlogPosts = posts.filter((frontMatter) => {
-      const searchContent = frontMatter.title + frontMatter.resumo + frontMatter.tags + ''
-      console.log('Search content:')
-      console.log(searchContent)
-      return searchContent.toLowerCase().includes(searchValue.toLowerCase())
-    })
-    displayPosts = posts.length > 0 && !searchValue ? posts : filteredBlogPosts
-  }
+  // console.log(filteredBlogPosts)
+  const filteredBlogPosts = allPosts.filter((frontMatter) => {
+    // console.log(frontMatter)
+    const { title, resumo, tags } = frontMatter.fields
+    const searchContent = title ? title : ' ' + resumo ? resumo : ' ' + tags ? tags : '' + ''
+    console.log('Search content:')
+    console.log(searchContent)
+
+    return searchContent ? searchContent.toLowerCase().includes(searchValue.toLowerCase()) : false
+  })
+  // // If initialDisplayPosts exist, display it if no searchValue is specified
+  const displayPosts = posts.length > 0 && !searchValue ? posts : filteredBlogPosts
 
   return (
     <>
@@ -42,7 +41,6 @@ export default function TemplateBlogs({ posts, title, initialDisplayPosts = [], 
               type="text"
               onChange={(e) => {
                 setSearchValue(e.target.value)
-                FilterPosts()
               }}
               placeholder="Search articles"
               className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100"
