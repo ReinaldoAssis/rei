@@ -6,6 +6,7 @@ import { getAllFilesFrontMatter } from '@/lib/mdx'
 import Image from 'next/image'
 import Interesses from '@/components/home page/Interesses'
 import Ufal from '@/components/home page/Ufal'
+import { motion } from 'framer-motion'
 
 const MAX_DISPLAY = 5
 const postDateTemplate = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -34,45 +35,92 @@ export default function Home({ posts }) {
           </p> */}
         </div>
       </div>
-      <div
+      <motion.div
         style={{
           padding: 30,
           boxShadow: '0px 10px 10px rgba(0,0,0,0.2)',
         }}
         className="mb-4 dark:bg-roxo bg-gray-30 "
+        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: -200, opacity: 0 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
       >
         <div className="grid sm:grid-cols-2">
           {/* PAINEL DE LANDING*/}
           <Image alt="" src="/static/images/feeling_proud.svg" width={600} height={400} />{' '}
           {/*IMAGE*/}
           <div className="flex-initial md:ml-6">
-            <h1 className="text-3xl font-extrabold mt-6 lg:mt-0" style={{ color: '#6C63FF' }}>
-              &lt;Rei&gt;
-            </h1>
-            <h1 className="text-3xl md:text-2xl font-bold lg:ml-16" style={{ padding: 10 }}>
-              A developer under development
-            </h1>
-            <h1 className="text-3xl font-extrabold" style={{ color: '#6C63FF' }}>
-              &lt;/Rei&gt;
-            </h1>
-            <h1 className="text-lg font-bold" style={{ color: '#28385C', marginTop: 10 }}>
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: 'easeOut', delay: 1 }}
+            >
+              <h1 className="text-3xl font-extrabold mt-6 lg:mt-0" style={{ color: '#6C63FF' }}>
+                &lt;Rei&gt;
+              </h1>
+            </motion.div>
+
+            <motion.h1
+              style={{ padding: 10 }}
+              transition={{ delay: 1.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-3xl md:text-2xl font-bold lg:ml-16"
+            >
+              {'A developer under development'.split('').map((letter, i) => {
+                return (
+                  <motion.span
+                    style={{ display: 'inline' }}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.08, duration: 1, ease: 'easeOut' }}
+                    key={`${letter}-${i}`}
+                  >
+                    {letter}
+                  </motion.span>
+                )
+              })}
+            </motion.h1>
+
+            <motion.div
+              initial={{ y: -60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: 'easeOut', delay: 1 }}
+            >
+              <h1 className="text-3xl font-extrabold" style={{ color: '#6C63FF' }}>
+                &lt;/Rei&gt;
+              </h1>
+            </motion.div>
+            <motion.h1
+              transition={{ delay: 2, duration: 1.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-lg font-bold"
+              style={{ color: '#28385C', marginTop: 10 }}
+            >
               Programming a better world <i>since</i> 2003.
-            </h1>
-            <Link href="/projects">
-              <div
-                style={{
-                  width: 'fit-content',
-                  boxShadow: '0px 6px 7px rgba(0,0,0,0.3)',
-                  userSelect: 'none',
-                }}
-                className="mt-16 bg-indigo-600 btn transform transition duration-300 hover:scale-105 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full"
-              >
-                Project's showcase
-              </div>
-            </Link>
+            </motion.h1>
+            <motion.div
+              transition={{ delay: 1, ease: 'easeOut', duration: 2 }}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              <Link href="/projects">
+                <div
+                  style={{
+                    width: 'fit-content',
+                    boxShadow: '0px 6px 7px rgba(0,0,0,0.3)',
+                    userSelect: 'none',
+                  }}
+                  className="mt-16 bg-indigo-600 btn transform transition duration-300 hover:scale-105 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full"
+                >
+                  Project's showcase
+                </div>
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6 mb-6">
           <Link

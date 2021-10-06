@@ -10,6 +10,26 @@ const postDateTemplate = { year: 'numeric', month: 'long', day: 'numeric' }
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
 
+function formatDate(_date) {
+  return new Date(_date).toLocaleDateString(siteMetadata.locale, {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  })
+}
+
+function formatDateFilter(_date) {
+  return (
+    '' +
+    new Date(_date).toLocaleDateString(siteMetadata.locale, {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+    }) +
+    new Date(_date).toLocaleDateString(siteMetadata.locale, postDateTemplate)
+  )
+}
+
 export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
   const [searchValue, setSearchValue] = useState('')
 
@@ -18,8 +38,13 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
   // console.log(filteredBlogPosts)
   const filteredBlogPosts = allPosts.filter((frontMatter) => {
     // console.log(frontMatter)
-    const { title, resumo, tags } = frontMatter.fields
-    const searchContent = title ? title : ' ' + resumo ? resumo : ' ' + tags ? tags : '' + ''
+    const { title, resumo, tags, date } = frontMatter.fields
+    const searchContent =
+      (title ? title : ' ') +
+      (resumo ? resumo : ' ') +
+      (formatDateFilter(date) ? formatDateFilter(date) : '') +
+      (tags ? tags : '') +
+      ''
     console.log('Search content:')
     console.log(searchContent)
 
@@ -68,13 +93,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
             // console.log(frontMatter.fields)
             const { title, resumo, tags } = frontMatter.fields
             const date =
-              frontMatter.fields.date == null
-                ? '03-01-1964'
-                : new Date(frontMatter.fields.date).toLocaleDateString(siteMetadata.locale, {
-                    day: 'numeric',
-                    month: 'numeric',
-                    year: 'numeric',
-                  })
+              frontMatter.fields.date == null ? '03-01-1964' : formatDate(frontMatter.fields.date)
             const slug =
               (title == null ? '' : title).replace(' ', '-').replace(/[^a-zA-Z- ]/g, '') +
               '-' +
@@ -89,7 +108,9 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
             var thumb = { file: { url: null_url, details: { image: { width: 900, height: 900 } } } }
             try {
               thumb = frontMatter.fields.thumbnail.fields
-            } catch {}
+            } catch {
+              return
+            }
 
             return (
               <li key={slug} className="py-4">
