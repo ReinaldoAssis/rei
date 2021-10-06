@@ -31,13 +31,14 @@ function formatDateFilter(_date) {
   )
 }
 
+let isInSyncWithQuery = true //enquanto o usuario nao mudar o texto de pesquisa, isso permanece true
 export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
   const [searchValue, setSearchValue] = useState('')
 
   const router = useRouter()
   const { search } = router.query
 
-  if (search && search != searchValue) setSearchValue(search)
+  if (search && search != searchValue && isInSyncWithQuery) setSearchValue(search)
 
   // console.log(allPosts)
 
@@ -71,10 +72,12 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
             <input
               aria-label="Search articles"
               type="text"
-              value={searchValue}
+              defaultValue={searchValue}
               onChange={(e) => {
                 setSearchValue(e.target.value)
               }}
+              onKeyDown={()=>{
+                isInSyncWithQuery = false;}}
               placeholder="Search articles"
               className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100"
             />
@@ -151,9 +154,9 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
                             {title == null ? 'Undefined' : title}
                           </Link>
                         </h3>
-                        <div className="flex flex-wrap">
+                        <div className="flex flex-wrap" onClick={()=>{isInSyncWithQuery = true}}>
                           {_tags.map((tag) => (
-                            <Tag key={tag} text={tag.replace('-', ' ')} />
+                            <Tag key={tag} text={tag.replace('-', ' ')} isInSyncWithQuery={isInSyncWithQuery} />
                           ))}
                         </div>
                       </div>
