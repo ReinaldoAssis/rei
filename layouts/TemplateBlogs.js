@@ -20,14 +20,14 @@ function formatDate(_date) {
 }
 
 function formatDateFilter(_date) {
+  const type1 = _date ? new Date(_date).toLocaleDateString(siteMetadata.locale, {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  }) : '';
+  const type2 = _date ? new Date(_date).toLocaleDateString(siteMetadata.locale, postDateTemplate) : '';
   return (
-    '' +
-    new Date(_date).toLocaleDateString(siteMetadata.locale, {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric',
-    }) +
-    new Date(_date).toLocaleDateString(siteMetadata.locale, postDateTemplate)
+    ''+type1+' '+type2
   )
 }
 
@@ -40,11 +40,8 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
 
   if (search && search != searchValue && isInSyncWithQuery) setSearchValue(search)
 
-  // console.log(allPosts)
 
-  // console.log(filteredBlogPosts)
   const filteredBlogPosts = allPosts.filter((frontMatter) => {
-    // console.log(frontMatter)
     const { title, resumo, tags, date } = frontMatter.fields
     const searchContent =
       (title ? title : ' ') +
@@ -52,14 +49,19 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
       (formatDateFilter(date) ? formatDateFilter(date) : '') +
       (tags ? tags : '') +
       ''
-    // console.log('Search content:')
-    // console.log(searchContent)
+    //  console.log('Search content:')
+    //  console.log(searchContent)
 
-    return searchContent ? searchContent.toLowerCase().includes(searchValue.toLowerCase()) : false
+    return searchContent ? searchContent.toLowerCase().replace(' ','').includes(searchValue.toLowerCase().replace(' ','')) : false
   })
+
+  const filteredTagsPosts = allPosts.filter((x) => {
+    const {tags} = x.fields
+    return tags? tags.replace(' ','').replace(',',' ').split(' ').some(searchValue.split(' ')) : false//(tags.toLowerCase().replace(",","").includes(searchValue.toLowerCase())) : false
+  })
+
   // // If initialDisplayPosts exist, display it if no searchValue is specified
-  const displayPosts = !searchValue ? posts : posts.length > 0 && !searchValue ? posts : filteredBlogPosts
-  console.log(displayPosts)
+  const displayPosts = !searchValue ? posts : posts.length > 0 && !searchValue ? posts : [...filteredBlogPosts, ...filteredTagsPosts]
 
   return (
     <>
@@ -76,8 +78,9 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
               onChange={(e) => {
                 setSearchValue(e.target.value)
               }}
-              onKeyDown={()=>{
-                isInSyncWithQuery = false;}}
+              onKeyDown={(e)=>{
+                isInSyncWithQuery = false;
+                setSearchValue(e.target.value)}}
               placeholder="Search articles"
               className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100"
             />
@@ -100,8 +103,8 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
         <ul>
           {/* {!filteredBlogPosts.length && 'No posts found.'} */}
           {displayPosts.map((frontMatter) => {
-            console.log('List blog!')
-            console.log(frontMatter.fields)
+            // console.log('List blog!')
+            // console.log(frontMatter.fields)
             const { title, resumo, tags } = frontMatter.fields
             const date =
               frontMatter.fields.date == null ? '03-01-1964' : formatDate(frontMatter.fields.date)
