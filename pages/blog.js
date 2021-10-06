@@ -11,18 +11,11 @@ const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
 
 export async function getStaticProps() {
-  // const posts = await getAllFilesFrontMatter('blog')
-  // const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
-  // const pagination = {
-  //   currentPage: 1,
-  //   totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
-  // }
 
   const client = createClient({ space: space, accessToken: content_token })
 
   const res = await client.getEntries({ content_type: 'blog' })
   const _posts = res.items
-  // console.log(`POSTS LENGTH ${_posts.length}`)
 
   const pagination = {
     currentPage: 1,

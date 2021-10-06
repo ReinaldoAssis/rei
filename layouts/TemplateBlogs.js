@@ -39,7 +39,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
 
   if (search && search != searchValue) setSearchValue(search)
 
-  console.log(allPosts)
+  // console.log(allPosts)
 
   // console.log(filteredBlogPosts)
   const filteredBlogPosts = allPosts.filter((frontMatter) => {
@@ -51,13 +51,14 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
       (formatDateFilter(date) ? formatDateFilter(date) : '') +
       (tags ? tags : '') +
       ''
-    console.log('Search content:')
-    console.log(searchContent)
+    // console.log('Search content:')
+    // console.log(searchContent)
 
     return searchContent ? searchContent.toLowerCase().includes(searchValue.toLowerCase()) : false
   })
   // // If initialDisplayPosts exist, display it if no searchValue is specified
   const displayPosts = posts.length > 0 && !searchValue ? posts : filteredBlogPosts
+  console.log(displayPosts)
 
   return (
     <>
@@ -70,6 +71,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
             <input
               aria-label="Search articles"
               type="text"
+              value={searchValue}
               onChange={(e) => {
                 setSearchValue(e.target.value)
               }}
@@ -95,8 +97,8 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
         <ul>
           {/* {!filteredBlogPosts.length && 'No posts found.'} */}
           {displayPosts.map((frontMatter) => {
-            // console.log('List blog!')
-            // console.log(frontMatter.fields)
+            console.log('List blog!')
+            console.log(frontMatter.fields)
             const { title, resumo, tags } = frontMatter.fields
             const date =
               frontMatter.fields.date == null ? '03-01-1964' : formatDate(frontMatter.fields.date)
@@ -115,7 +117,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
             try {
               thumb = frontMatter.fields.thumbnail.fields
             } catch {
-              return
+              
             }
 
             return (
