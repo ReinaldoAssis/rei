@@ -58,7 +58,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
     return searchContent ? searchContent.toLowerCase().includes(searchValue.toLowerCase()) : false
   })
   // // If initialDisplayPosts exist, display it if no searchValue is specified
-  const displayPosts = posts.length > 0 && !searchValue ? posts : filteredBlogPosts
+  const displayPosts = !searchValue ? posts : posts.length > 0 && !searchValue ? posts : filteredBlogPosts
   console.log(displayPosts)
 
   return (
