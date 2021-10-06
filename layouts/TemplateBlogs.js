@@ -4,6 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { useState } from 'react'
 import Pagination from '@/components/Pagination'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const postDateTemplate = { year: 'numeric', month: 'long', day: 'numeric' }
 
@@ -32,6 +33,11 @@ function formatDateFilter(_date) {
 
 export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
   const [searchValue, setSearchValue] = useState('')
+
+  const router = useRouter()
+  const { search } = router.query
+
+  if (search && search != searchValue) setSearchValue(search)
 
   console.log(allPosts)
 
