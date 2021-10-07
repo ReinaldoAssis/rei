@@ -5,11 +5,13 @@ import { useState } from 'react'
 import Pagination from '@/components/Pagination'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import {motion} from 'framer-motion'
 
 const postDateTemplate = { year: 'numeric', month: 'long', day: 'numeric' }
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
+// const d = process.env.PageTransition
 
 function formatDate(_date) {
   return new Date(_date).toLocaleDateString(siteMetadata.locale, {
@@ -32,7 +34,7 @@ function formatDateFilter(_date) {
 }
 
 let isInSyncWithQuery = true //enquanto o usuario nao mudar o texto de pesquisa, isso permanece true
-export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
+export default function TemplateBlogs({ posts, title, allPosts, pagination, d }) {
   const [searchValue, setSearchValue] = useState('')
 
   const router = useRouter()
@@ -49,8 +51,6 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
       (formatDateFilter(date) ? formatDateFilter(date) : '') +
       (tags ? tags : '') +
       ''
-    //  console.log('Search content:')
-    //  console.log(searchContent)
 
     return searchContent ? searchContent.toLowerCase().replace(' ','').includes(searchValue.toLowerCase().replace(' ','')) : false
   })
@@ -105,7 +105,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
         </div>
         <ul>
           {/* {!filteredBlogPosts.length && 'No posts found.'} */}
-          {displayPosts.map((frontMatter) => {
+          {displayPosts.map((frontMatter, p) => {
             // console.log('List blog!')
             // console.log(frontMatter.fields)
             const { title, resumo, tags } = frontMatter.fields
@@ -132,7 +132,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
             return (
               <li key={slug} className="py-4">
                 <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                  <div className="flex flex-wrap content-center">
+                  <motion.div initial={{opacity:0, x:-90}} animate={{opacity:1, x:0}} transition={{duration:0.5, ease:"easeOut", delay:(0.3+p*0.2)}} className="flex flex-wrap content-center">
                     <div className="thumbnail flex-initial shadow-md mr-5">
                       <Image
                         src={'https:' + thumb.file.url}
@@ -183,7 +183,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
                         </dd>
                       </div>
                     </dl>
-                  </div>
+                  </motion.div>
                 </article>
               </li>
             )

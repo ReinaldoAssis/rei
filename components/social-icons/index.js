@@ -5,6 +5,7 @@ import Youtube from './youtube.svg'
 import Linkedin from './linkedin.svg'
 import Twitter from './twitter.svg'
 import Instagram from './instagram.svg'
+import { motion } from 'framer-motion'
 
 // Icons taken from: https://simpleicons.org/
 
@@ -18,23 +19,25 @@ const components = {
   instagram: Instagram,
 }
 
-const SocialIcon = ({ kind, href, size = 8 }) => {
+const SocialIcon = ({ kind, href, size = 8, initial, animate, transition }) => {
   if (!href) return null
 
   const SocialSvg = components[kind]
 
   return (
-    <a
-      className="text-sm text-gray-500 transition hover:text-gray-600"
-      target="_blank"
-      rel="noopener noreferrer"
-      href={href}
-    >
-      <span className="sr-only">{kind}</span>
-      <SocialSvg
-        className={`fill-current text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 h-${size} w-${size}`}
-      />
-    </a>
+    <motion.div animate={animate} initial={initial} transition={transition} >
+      <a
+        className="text-sm text-gray-500 transition hover:text-gray-600"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={href}
+      >
+        <span className="sr-only">{kind}</span>
+        <SocialSvg
+          className={`fill-current text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 h-${size} w-${size}`}
+        />
+      </a>
+    </motion.div>
   )
 }
 

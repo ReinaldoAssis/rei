@@ -5,8 +5,11 @@ import Card from '@/components/Card'
 import { createClient } from 'contentful'
 import { PageSeo } from '@/components/SEO'
 
+import { motion } from 'framer-motion'
+
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
+const d = process.env.PageTransition
 
 export async function getStaticProps() {
   const client = createClient({ space: space, accessToken: content_token })
@@ -37,7 +40,7 @@ export default function Projects({ projectsData }) {
         description={siteMetadata.description}
         url={`${siteMetadata.siteUrl}/projects`}
       />
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <motion.div initial={{opacity:0, y:-200}} animate={{opacity:1,y:0}} transition={{duration:d, ease:"easeOut"}} className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="pt-6 pb-8 space-y-2 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Projects
@@ -46,18 +49,19 @@ export default function Projects({ projectsData }) {
         </div>
         <div className="container py-12">
           <div className="flex flex-wrap -m-4">
-            {projectsData.map((d) => (
+            {projectsData.map((d, p) => (
               <Card
                 key={d.title}
                 title={d.title}
                 description={d.description}
                 imgSrc={d.imgSrc}
                 href={d.href}
+                delay={0.3+p*0.2}
               />
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }

@@ -7,6 +7,7 @@ import Head from 'next/head'
 
 import { SEO } from '@/components/SEO'
 import LayoutWrapper from '@/components/LayoutWrapper'
+import {AnimateSharedLayout } from 'framer-motion'
 
 export default function App({ Component, pageProps }) {
   return (
@@ -16,7 +17,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <DefaultSeo {...SEO} />
       <LayoutWrapper>
-        <Component {...pageProps} />
+        <AnimateSharedLayout exitBeforeEnter initial={false} onExitComplete={()=>{window.scrollTo(0,0)}}> 
+            <Component {...pageProps} />
+        </AnimateSharedLayout>
       </LayoutWrapper>
     </ThemeProvider>
   )

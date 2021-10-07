@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import Link from '@/components/Link'
+import { motion } from 'framer-motion'
 
-const Card = ({ title, description, imgSrc, href }) => (
-  <div className="p-4 md:w-1/2 md" style={{ maxWidth: '544px' }}>
+const Card = ({ title, description, imgSrc, href, delay }) => (
+  <motion.div initial={{opacity:0, x:-90}} animate={{opacity:1, x:0}} transition={{duration:0.5, ease:"easeOut", delay:delay}} className="p-4 md:w-1/2 md" style={{ maxWidth: '544px' }}>
     <div className="h-full border-2 border-gray-200 border-opacity-60 dark:border-gray-700 rounded-md overflow-hidden">
       {href ? (
         <Link href={href} aria-label={`Link to ${title}`}>
@@ -45,7 +46,7 @@ const Card = ({ title, description, imgSrc, href }) => (
         )}
       </div>
     </div>
-  </div>
+  </motion.div>
 )
 
 export default Card
