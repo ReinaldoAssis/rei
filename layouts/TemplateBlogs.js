@@ -57,7 +57,10 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination }) {
 
   const filteredTagsPosts = allPosts.filter((x) => {
     const {tags} = x.fields
-    return tags? tags.replace(' ','').replace(',',' ').split(' ').some(searchValue.split(' ')) : false//(tags.toLowerCase().replace(",","").includes(searchValue.toLowerCase())) : false
+    const _tags = tags ? tags.toLowerCase().replace(' ','').replace(',',' ').split(' ') : []
+    const _searchV = searchValue.toLowerCase().replace(',','').split(' ')
+
+    return filteredBlogPosts.some(p => p==x)? false : _tags.some(r=>_searchV.indexOf(r) >= 0)
   })
 
   // // If initialDisplayPosts exist, display it if no searchValue is specified
