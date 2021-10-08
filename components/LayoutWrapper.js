@@ -51,8 +51,8 @@ const LayoutWrapper = ({ children, router }) => {
               ))}
             </div>
             <ThemeSwitch />
-            {/* <MobileNav /> */}
-            <AnimatedMobileNav />
+            <MobileNav />
+            {/* <AnimatedMobileNav /> */}
           </div>
         </header>
         <main className="mb-auto">{children}</main>

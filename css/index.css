@@ -85,8 +85,8 @@
   -ms-user-select: none;
   cursor: pointer;
   position: fixed;
-  top: 28px;
-  right: 15px;
+  bottom: 40px;
+  right: 35px;
   width: 50px;
   height: 50px;
   border-radius: 50%;

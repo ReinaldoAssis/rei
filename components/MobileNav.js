@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
 
@@ -16,6 +16,15 @@ const MobileNav = () => {
       return !status
     })
   }
+
+  const navref = useRef(null)
+
+  useEffect(()=>{
+    if(!navShow) return;
+    function handleClick(event){
+      if()
+    }
+  })
 
   return (
     <div className="sm:hidden">
@@ -57,7 +66,7 @@ const MobileNav = () => {
           className="fixed w-full h-full cursor-auto focus:outline-none"
           onClick={onToggleNav}
         ></button>
-        <nav className="fixed h-full mt-8">
+        <nav className="absolute h-full mt-8" >
           {headerNavLinks.map((link) => (
             <div key={link.title} className="px-12 py-4">
               <Link
