@@ -2,11 +2,13 @@ import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
 
-export default function Footer() {
+export default function Footer({ showSocial = true }) {
   return (
     <footer>
       <div className="flex flex-col items-center mt-16">
-        <div className="flex mb-3 space-x-4">
+        <div
+          className={`flex mb-3 space-x-4 footerSocial ${showSocial ? 'visible' : 'invisible'} `}
+        >
           <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size="6" />
           <SocialIcon kind="github" href={siteMetadata.github} size="6" />
           <SocialIcon kind="instagram" href={siteMetadata.instagram} size="6" />

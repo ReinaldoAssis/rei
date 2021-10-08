@@ -135,6 +135,7 @@ export default function About() {
                   <SocialIcon
                     kind={ic.kind}
                     href={ic.ref}
+                    key={ic + i}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 1 + 0.4 * i }}
@@ -145,7 +146,7 @@ export default function About() {
           </div>
           <div className="pt-8 pb-8 prose dark:prose-dark max-w-none xl:col-span-2">
             <AnimatePresence>
-              <p style={{ lineHeight: 1.4 }}>
+              <p key="p1" style={{ lineHeight: 1.4 }}>
                 <AnimatedText
                   styleplus={{
                     display: 'inline-block',
@@ -162,7 +163,7 @@ export default function About() {
                   passion evolved into something much bigger than just games.
                 </AnimatedText>
               </p>
-              <p style={{ lineHeight: 1.4 }}>
+              <p key="p2" style={{ lineHeight: 1.4 }}>
                 <AnimatedText
                   styleplus={{
                     display: 'inline-block',
