@@ -8,6 +8,12 @@
   height: 130px;
 }
 
+@-moz-document url-prefix() {
+  body {
+    scroll-behavior: auto;
+  }
+}
+
 @media (max-width: 480px) {
   .thumbnail {
     width: 90px;
