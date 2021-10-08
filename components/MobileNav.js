@@ -23,7 +23,8 @@ const MobileNav = () => {
     if (!navShow) return
     function handleClick(event) {
       if (navref.current && !navref.current.contains(event.target)) {
-        setNavShow(false)
+        // setNavShow(false)
+        onToggleNav()
       }
     }
 
