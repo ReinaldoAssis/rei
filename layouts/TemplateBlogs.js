@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Pagination from '@/components/Pagination'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const postDateTemplate = { year: 'numeric', month: 'long', day: 'numeric' }
 
@@ -22,15 +22,17 @@ function formatDate(_date) {
 }
 
 function formatDateFilter(_date) {
-  const type1 = _date ? new Date(_date).toLocaleDateString(siteMetadata.locale, {
-    day: 'numeric',
-    month: 'numeric',
-    year: 'numeric',
-  }) : '';
-  const type2 = _date ? new Date(_date).toLocaleDateString(siteMetadata.locale, postDateTemplate) : '';
-  return (
-    ''+type1+' '+type2
-  )
+  const type1 = _date
+    ? new Date(_date).toLocaleDateString(siteMetadata.locale, {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+      })
+    : ''
+  const type2 = _date
+    ? new Date(_date).toLocaleDateString(siteMetadata.locale, postDateTemplate)
+    : ''
+  return '' + type1 + ' ' + type2
 }
 
 let isInSyncWithQuery = true //enquanto o usuario nao mudar o texto de pesquisa, isso permanece true
@@ -42,7 +44,6 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
 
   if (search && search != searchValue && isInSyncWithQuery) setSearchValue(search)
 
-
   const filteredBlogPosts = allPosts.filter((frontMatter) => {
     const { title, resumo, tags, date } = frontMatter.fields
     const searchContent =
@@ -52,19 +53,30 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
       (tags ? tags : '') +
       ''
 
-    return searchContent ? searchContent.toLowerCase().replace(' ','').includes(searchValue.toLowerCase().replace(' ','')) : false
+    return searchContent
+      ? searchContent
+          .toLowerCase()
+          .replace(' ', '')
+          .includes(searchValue.toLowerCase().replace(' ', ''))
+      : false
   })
 
   const filteredTagsPosts = allPosts.filter((x) => {
-    const {tags} = x.fields
-    const _tags = tags ? tags.toLowerCase().replace(' ','').replace(',',' ').split(' ') : []
-    const _searchV = searchValue.toLowerCase().replace(',','').split(' ')
+    const { tags } = x.fields
+    const _tags = tags ? tags.toLowerCase().replace(' ', '').replace(',', ' ').split(' ') : []
+    const _searchV = searchValue.toLowerCase().replace(',', '').split(' ')
 
-    return filteredBlogPosts.some(p => p==x)? false : _tags.some(r=>_searchV.indexOf(r) >= 0)
+    return filteredBlogPosts.some((p) => p == x)
+      ? false
+      : _tags.some((r) => _searchV.indexOf(r) >= 0)
   })
 
   // // If initialDisplayPosts exist, display it if no searchValue is specified
-  const displayPosts = !searchValue ? posts : posts.length > 0 && !searchValue ? posts : [...filteredBlogPosts, ...filteredTagsPosts]
+  const displayPosts = !searchValue
+    ? posts
+    : posts.length > 0 && !searchValue
+    ? posts
+    : [...filteredBlogPosts, ...filteredTagsPosts]
 
   return (
     <>
@@ -81,9 +93,10 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
               onChange={(e) => {
                 setSearchValue(e.target.value)
               }}
-              onKeyDown={(e)=>{
-                isInSyncWithQuery = false;
-                setSearchValue(e.target.value)}}
+              onKeyDown={(e) => {
+                isInSyncWithQuery = false
+                setSearchValue(e.target.value)
+              }}
               placeholder="Search articles"
               className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100"
             />
@@ -125,14 +138,17 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
             var thumb = { file: { url: null_url, details: { image: { width: 900, height: 900 } } } }
             try {
               thumb = frontMatter.fields.thumbnail.fields
-            } catch {
-              
-            }
+            } catch {}
 
             return (
               <li key={slug} className="py-4">
                 <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                  <motion.div initial={{opacity:0, x:-90}} animate={{opacity:1, x:0}} transition={{duration:0.5, ease:"easeOut", delay:(0.3+p*0.2)}} className="flex flex-wrap content-center">
+                  <motion.div
+                    initial={{ opacity: 0, x: -90 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 + p * 0.2 }}
+                    className="flex flex-wrap content-center"
+                  >
                     <div className="thumbnail flex-initial shadow-md mr-5">
                       <Image
                         src={'https:' + thumb.file.url}
@@ -160,9 +176,18 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                             {title == null ? 'Undefined' : title}
                           </Link>
                         </h3>
-                        <div className="flex flex-wrap" onClick={()=>{isInSyncWithQuery = true}}>
+                        <div
+                          className="flex flex-wrap"
+                          onClick={() => {
+                            isInSyncWithQuery = true
+                          }}
+                        >
                           {_tags.map((tag) => (
-                            <Tag key={tag} text={tag.replace('-', ' ')} isInSyncWithQuery={isInSyncWithQuery} />
+                            <Tag
+                              key={tag}
+                              text={tag.replace('-', ' ')}
+                              isInSyncWithQuery={isInSyncWithQuery}
+                            />
                           ))}
                         </div>
                       </div>
@@ -170,10 +195,10 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                         {resumo}
                       </div>
                     </div>
-                    <dl>
+                    <dl className="sr-only">
                       <dt className="sr-only">Published on</dt>
-                      <div className="textodata">
-                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                      <div className="sr-only">
+                        <dd className="text-base sr-only font-medium leading-6 text-gray-500 dark:text-gray-400">
                           <time dateTime={date}>
                             {new Date(date).toLocaleDateString(
                               siteMetadata.locale,
