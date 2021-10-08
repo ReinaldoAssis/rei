@@ -12,12 +12,13 @@ const socialIcons = [
     ref: `mailto:${siteMetadata.email}`,
   },
   {
-    kind: 'instagram',
-    ref: siteMetadata.instagram,
-  },
-  {
     kind: 'github',
     ref: siteMetadata.github,
+  },
+
+  {
+    kind: 'instagram',
+    ref: siteMetadata.instagram,
   },
   {
     kind: 'youtube',
