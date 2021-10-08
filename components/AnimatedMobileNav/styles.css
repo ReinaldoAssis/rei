@@ -1,47 +1,3 @@
-.btn {
-  width: fit-content;
-  width: -moz-max-content;
-}
-
-.thumbnail {
-  width: 130px;
-  height: 130px;
-}
-
-@-moz-document url-prefix() {
-  body {
-    scroll-behavior: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .thumbnail {
-    width: 90px;
-    height: 90px;
-  }
-
-  .textodata {
-    display: none;
-  }
-
-  .textodataMobile {
-    display: block;
-  }
-}
-
-@media (min-width: 481px) {
-  .textodataMobile {
-    display: none;
-  }
-}
-
-/* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .home_img {
-    width: 1%;
-  }
-}
-
 #animmobilenav body {
   width: 100vw;
   height: 100vh;
@@ -68,8 +24,7 @@
   left: 0;
   bottom: 0;
   width: 300px;
-  z-index: 0;
-  background: rgb(255, 255, 255);
+  background: #fff;
 }
 
 #animmobilenav button {
@@ -86,9 +41,6 @@
   height: 50px;
   border-radius: 50%;
   background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 #animmobilenav ul,

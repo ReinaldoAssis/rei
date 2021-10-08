@@ -8,6 +8,7 @@ import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import React, { useEffect } from 'react'
 import { withRouter } from 'next/router'
+import { AnimatedMobileNav } from './AnimatedMobileNav/AnimatedMobileNav'
 
 let showSocial = true
 
@@ -50,7 +51,8 @@ const LayoutWrapper = ({ children, router }) => {
               ))}
             </div>
             <ThemeSwitch />
-            <MobileNav />
+            {/* <MobileNav /> */}
+            <AnimatedMobileNav />
           </div>
         </header>
         <main className="mb-auto">{children}</main>
