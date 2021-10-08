@@ -152,7 +152,8 @@ export default function About() {
                     padding: 0,
                     willChange: 'transform',
                   }}
-                  delayofset={0.05}
+                  delayofset={0.06}
+                  duration={1}
                   truedelay={0.4}
                 >
                   I started programming back when I was 6 years old, developing my own little games
@@ -168,7 +169,8 @@ export default function About() {
                     padding: 0,
                     willChange: 'transform',
                   }}
-                  delayofset={0.05}
+                  delayofset={0.06}
+                  duration={1}
                   truedelay={2.4}
                 >
                   From creating games I developed interest not only in Software Engineering in
