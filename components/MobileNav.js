@@ -19,11 +19,15 @@ const MobileNav = () => {
 
   const navref = useRef(null)
 
-  useEffect(()=>{
-    if(!navShow) return;
-    function handleClick(event){
-      if()
+  useEffect(() => {
+    if (!navShow) return
+    function handleClick(event) {
+      if (navref.current && !navref.current.contains(event.target)) {
+        setNavShow(false)
+      }
     }
+    window.addEventListener('click', handleClick)
+    return () => window.removeEventListener('click', handleClick)
   })
 
   return (
@@ -66,7 +70,7 @@ const MobileNav = () => {
           className="fixed w-full h-full cursor-auto focus:outline-none"
           onClick={onToggleNav}
         ></button>
-        <nav className="absolute h-full mt-8" >
+        <nav ref={navref} className="absolute h-full mt-8">
           {headerNavLinks.map((link) => (
             <div key={link.title} className="px-12 py-4">
               <Link
