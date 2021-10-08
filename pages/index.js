@@ -107,7 +107,7 @@ export default function Home({ posts }) {
                 className="text-lg font-bold"
                 style={{ color: '#28385C', marginTop: 10 }}
               >
-                Programming a better world <i>since</i> 2003.
+                Programming a better world <i>since</i> 2009.
               </motion.h1>
               <motion.div
                 transition={{ delay: 0.6, ease: 'easeOut', duration: 2 }}
