@@ -161,7 +161,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                       <div className="justify-self-center">
                         <dl>
                           <dt className="sr-only">Published on</dt>
-                          <div className="textodataMobile mb-8">
+                          <div className="textodataMobile sr-only mb-8">
                             <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                               <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
                             </dd>
@@ -195,9 +195,9 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                         {resumo}
                       </div>
                     </div>
-                    <dl className="sr-only">
+                    <dl>
                       <dt className="sr-only">Published on</dt>
-                      <div className="sr-only">
+                      <div className="textodata">
                         <dd className="text-base sr-only font-medium leading-6 text-gray-500 dark:text-gray-400">
                           <time dateTime={date}>
                             {new Date(date).toLocaleDateString(
