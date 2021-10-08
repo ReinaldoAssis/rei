@@ -198,7 +198,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <div className="textodata">
-                        <dd className="text-base sr-only font-medium leading-6 text-gray-500 dark:text-gray-400">
+                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                           <time dateTime={date}>
                             {new Date(date).toLocaleDateString(
                               siteMetadata.locale,
