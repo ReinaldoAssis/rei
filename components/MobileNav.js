@@ -26,8 +26,15 @@ const MobileNav = () => {
         setNavShow(false)
       }
     }
+
+    function cleanUp() {
+      window.removeEventListener('click', handleClick)
+      window.removeEventListener('touchend', handleClick)
+    }
+
     window.addEventListener('click', handleClick)
-    return () => window.removeEventListener('click', handleClick)
+    window.addEventListener('touchend', handleClick)
+    return () => cleanUp()
   })
 
   return (
