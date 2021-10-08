@@ -18,12 +18,16 @@ const MobileNav = () => {
   }
 
   const navref = useRef(null)
+  const closeMenuref = useRef(null)
 
   useEffect(() => {
     if (!navShow) return
     function handleClick(event) {
-      if (navref.current && !navref.current.contains(event.target)) {
-        // setNavShow(false)
+      if (
+        navref.current &&
+        !navref.current.contains(event.target) &&
+        !closeMenuref.current.contains(event.target)
+      ) {
         onToggleNav()
       }
     }
@@ -42,6 +46,7 @@ const MobileNav = () => {
     <div className="sm:hidden">
       <button
         type="button"
+        ref={closeMenuref}
         className="w-8 h-8 ml-1 mr-1 rounded"
         aria-label="Toggle Menu"
         onClick={onToggleNav}
