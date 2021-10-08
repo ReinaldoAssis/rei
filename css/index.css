@@ -60,16 +60,21 @@
   left: 0;
   bottom: 0;
   width: 300px;
+  height: 100px;
 }
 
 #animmobilenav .background {
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   bottom: 0;
   width: 300px;
-  z-index: 0;
+  z-index: 1;
   background: rgb(255, 255, 255);
+}
+
+#animmobilenav {
+  right: 0;
 }
 
 #animmobilenav button {
@@ -79,9 +84,9 @@
   -moz-user-select: none;
   -ms-user-select: none;
   cursor: pointer;
-  position: absolute;
-  top: 18px;
-  left: 15px;
+  position: fixed;
+  top: 28px;
+  right: 15px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -89,6 +94,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 #animmobilenav ul,

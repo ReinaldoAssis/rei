@@ -10,7 +10,6 @@ import { height } from 'tailwindcss/defaultTheme'
 export const AnimatedMobileNav = () => {
   const [isOpen, toggleOpen] = useCycle(false, true)
   const containerRef = useRef(null)
-  //const { height } = useDimensions(containerRef)
 
   const [height, setHeight] = useState(0)
   useEffect(() => {
@@ -27,9 +26,9 @@ export const AnimatedMobileNav = () => {
       },
     }),
     closed: {
-      clipPath: 'circle(30px at 40px 40px)',
+      clipPath: 'circle(30px at 260px 50px)',
       transition: {
-        delay: 0.5,
+        delay: 0.2,
         type: 'spring',
         stiffness: 400,
         damping: 40,
