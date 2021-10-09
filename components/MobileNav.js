@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
 
-const MobileNav = () => {
+const MobileNav = ({ handleShowSocial }) => {
   const [navShow, setNavShow] = useState(false)
 
   const onToggleNav = () => {
@@ -89,7 +89,10 @@ const MobileNav = () => {
               <Link
                 href={link.href}
                 className="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
-                onClick={onToggleNav}
+                onClick={() => {
+                  onToggleNav()
+                  handleShowSocial(link.title.toLowerCase().includes('about') ? false : true)
+                }}
               >
                 {link.title}
               </Link>

@@ -18,6 +18,10 @@ const LayoutWrapper = ({ children, router }) => {
     showSocial = router.pathname.toLowerCase().includes('/about') ? false : true
   })
 
+  function setSocial(f) {
+    showSocial = f
+  }
+
   return (
     <SectionContainer>
       <div className="flex flex-col justify-between h-screen">
@@ -45,13 +49,16 @@ const LayoutWrapper = ({ children, router }) => {
                   key={link.title}
                   href={link.href}
                   className="p-1 font-medium text-gray-900 sm:p-4 dark:text-gray-100"
+                  onClick={() => {
+                    showSocial = link.title.toLowerCase().includes('about') ? false : true
+                  }}
                 >
                   {link.title}
                 </Link>
               ))}
             </div>
             <ThemeSwitch />
-            <MobileNav />
+            <MobileNav handleShowSocial={setSocial} />
             {/* <AnimatedMobileNav /> */}
           </div>
         </header>
