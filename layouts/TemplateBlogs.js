@@ -149,7 +149,12 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                     transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 + p * 0.2 }}
                     className="flex flex-wrap content-center"
                   >
-                    <div className="thumbnail flex-initial shadow-md mr-5">
+                    <div
+                      className="thumbnail flex-initial shadow-md mr-5"
+                      onClick={() => {
+                        router.push(`/blog/${slug}`)
+                      }}
+                    >
                       <Image
                         src={'https:' + thumb.file.url}
                         //width={10}
