@@ -4,6 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import PostLayout from '@/layouts/PostLayout'
 import IframeContainer from '@/components/IframeContainer'
+import { INLINES } from '@contentful/rich-text-types'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -77,7 +78,25 @@ const Post = ({ post }) => {
       [INLINES.HYPERLINK]: (node) => {
         if (node.data.uri.includes('player.vimeo.com/video')) {
           return (
-            <IframeContainer title="Embeded" src={node.data.uri} frameBorder="0" allowFullScreen />
+            // <IframeContainer title="Embeded" src={node.data.uri} frameBorder="0" allowFullScreen />
+            <iframe
+              className="shadow-xl"
+              title="Embeded"
+              src={node.data.uri}
+              frameBorder="0"
+              allowFullScreen
+              style={{
+                width: '96%',
+                height: '26rem',
+                backgroundColor: 'rgba(0,0,0,0)',
+                display: 'block',
+                margin: 0,
+                padding: 0,
+                border: 0,
+                lineHeight: 0,
+                overflow: 'hidden',
+              }}
+            />
           )
         } else if (node.data.uri.includes('youtube.com/embed')) {
           return (
@@ -94,7 +113,7 @@ const Post = ({ post }) => {
     },
   }
 
-  const child = documentToReactComponents(post.fields.text)
+  const child = documentToReactComponents(post.fields.text, options)
 
   return (
     <div>
