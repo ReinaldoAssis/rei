@@ -15,10 +15,11 @@ export const AnimatedMobileNav = () => {
   // const [scroll, setScroll] = useState(0)
   useEffect(() => {
     setHeight(window.innerHeight)
-    window.addEventListener('resize', () => setHeight(window.innerHeight))
-    // window.addEventListener('scroll', () => {
-    //   setScroll(window.scrollY)
-    // })
+    function handlerResize() {
+      setHeight(window.innerHeight)
+    }
+    window.addEventListener('resize', handlerResize)
+    return () => window.removeEventListener('resize', handlerResize)
   })
 
   const sidebar = {

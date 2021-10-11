@@ -3,6 +3,7 @@ import { createClient } from 'contentful'
 import siteMetadata from '@/data/siteMetadata'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import PostLayout from '@/layouts/PostLayout'
+import IframeContainer from '@/components/IframeContainer'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -69,6 +70,28 @@ const Post = ({ post }) => {
     tags: post.fields.tags.split(','),
     date: post.fields.date,
     slug: '',
+  }
+
+  const options = {
+    renderNode: {
+      [INLINES.HYPERLINK]: (node) => {
+        if (node.data.uri.includes('player.vimeo.com/video')) {
+          return (
+            <IframeContainer title="Embeded" src={node.data.uri} frameBorder="0" allowFullScreen />
+          )
+        } else if (node.data.uri.includes('youtube.com/embed')) {
+          return (
+            <IframeContainer
+              title="Embeded"
+              src={node.data.uri}
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+              frameBorder="0"
+              allowFullScreen
+            />
+          )
+        }
+      },
+    },
   }
 
   const child = documentToReactComponents(post.fields.text)

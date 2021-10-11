@@ -158,9 +158,9 @@ export default function About() {
                   duration={0.7}
                   truedelay={0.4}
                 >
-                  I started programming back when I was 6 years old, developing my own little games
-                  (most of which were written with basic block programming), but eventually, this
-                  passion evolved into something much bigger than just games.
+                  &emsp;I started programming back when I was 6 years old, developing my own little
+                  games (most of which were written with basic block programming), but eventually,
+                  this passion evolved into something much bigger than just games.
                 </AnimatedText>
               </p>
               <p key="p2" style={{ lineHeight: 1.4 }}>
@@ -175,7 +175,7 @@ export default function About() {
                   duration={0.7}
                   truedelay={2.4}
                 >
-                  From creating games I developed interest not only in Software Engineering in
+                  &emsp;From creating games I developed interest not only in Software Engineering in
                   general but in Hardware Engineering too. I love making things and I am also always
                   on the lookout to improve my skills.
                 </AnimatedText>

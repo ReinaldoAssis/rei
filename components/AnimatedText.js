@@ -13,7 +13,7 @@ export function AnimatedText({
   return words.map((word, i) => {
     return (
       <motion.div key={children + i} style={{ display: 'inline-block', overflow: 'hidden' }}>
-        <motion.div
+        <motion.p
           {...rest}
           initial={{ y: '100%' }}
           animate="visible"
@@ -31,7 +31,7 @@ export function AnimatedText({
           custom={i}
         >
           {word + (i !== words.length - 1 ? '\u00A0' : '')}
-        </motion.div>
+        </motion.p>
       </motion.div>
     )
   })
