@@ -4,7 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import PostLayout from '@/layouts/PostLayout'
 import IframeContainer from '@/components/IframeContainer'
-import { INLINES } from '@contentful/rich-text-types'
+import { INLINES, BLOCKS } from '@contentful/rich-text-types'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -109,6 +109,11 @@ const Post = ({ post }) => {
             />
           )
         }
+      },
+      'embedded-asset-block': (node) => {
+        const alt = node.data.target.fields.title
+        const url = node.data.target.fields.file.url
+        return <img alt={alt} src={url} />
       },
     },
   }
