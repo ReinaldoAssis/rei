@@ -113,7 +113,8 @@ const Post = ({ post }) => {
       'embedded-asset-block': (node) => {
         const alt = node.data.target.fields.title
         const url = node.data.target.fields.file.url
-        return <img alt={alt} src={url} />
+        const size = node.data.target.fields.file.details.image
+        return <img alt={alt} src={url} width={size.height > 500 ? size.width - 200 : ''} />
       },
     },
   }
