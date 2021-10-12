@@ -4,7 +4,7 @@ import siteMetadata from '@/data/siteMetadata'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import PostLayout from '@/layouts/PostLayout'
 import IframeContainer from '@/components/IframeContainer'
-import { INLINES, BLOCKS } from '@contentful/rich-text-types'
+import { INLINES } from '@contentful/rich-text-types'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -107,6 +107,13 @@ const Post = ({ post }) => {
               frameBorder="0"
               allowFullScreen
             />
+          )
+        } else {
+          console.log(node.content[0].value)
+          return (
+            <a href={node.data.uri} target="_blank">
+              {node.content[0].value}
+            </a>
           )
         }
       },
