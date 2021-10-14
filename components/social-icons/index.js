@@ -25,7 +25,7 @@ const SocialIcon = ({ kind, href, size = 8, initial, animate, transition }) => {
   const SocialSvg = components[kind]
 
   return (
-    <motion.div animate={animate} initial={initial} transition={transition} >
+    <motion.div animate={animate} initial={initial} transition={transition}>
       <a
         className="text-sm text-gray-500 transition hover:text-gray-600"
         target="_blank"
