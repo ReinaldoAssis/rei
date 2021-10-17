@@ -38,6 +38,22 @@ module.exports = withBundleAnalyzer({
 
     return config
   },
+  async redirects() {
+    return [
+      {
+        source: '/linkedin',
+        destination: 'https://www.linkedin.com/in/reiassis/',
+        permanent: false,
+        basePath: false,
+      },
+      {
+        source: '/github',
+        destination: 'https://github.com/ReinaldoAssis',
+        permanent: false,
+        basePath: false,
+      },
+    ]
+  },
   async rewrites() {
     return {
       beforeFiles: [
