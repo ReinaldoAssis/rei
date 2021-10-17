@@ -7,26 +7,20 @@ import Head from 'next/head'
 
 import { SEO } from '@/components/SEO'
 import LayoutWrapper from '@/components/LayoutWrapper'
-import { AnimateSharedLayout, motion, AnimatePresence } from 'framer-motion'
-import { black, white } from 'tailwindcss/colors'
-import { useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import siteMetadata from '@/data/siteMetadata'
 import { useRouter } from 'next/router'
+import { AnimatedText } from '@/components/AnimatedText'
 
 export default function App({ Component, pageProps }) {
   const { theme, resolvedTheme } = useTheme()
   const router = useRouter()
-  const { redirecionar } = router.query
+  // const { redirecionar } = router.query
 
-  // if(redirecionar == 'linkedin'){
+  // const [showLinkedin, setLinkedin] = useState()
 
-  // }
-
-  useEffect(
-    () =>
-      redirecionar == 'linkedin' &&
-      setTimeout(() => window.open(siteMetadata.linkedin, '_blank'), 1000)
-  )
+  // useEffect(() => redirecionar == 'linkedin' && setTimeout(() => setLinkedin(true), 1000))
 
   return (
     <ThemeProvider attribute="class">
