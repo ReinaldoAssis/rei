@@ -7,11 +7,8 @@ import Head from 'next/head'
 
 import { SEO } from '@/components/SEO'
 import LayoutWrapper from '@/components/LayoutWrapper'
-import { AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import siteMetadata from '@/data/siteMetadata'
 import { useRouter } from 'next/router'
-import { AnimatedText } from '@/components/AnimatedText'
 
 export default function App({ Component, pageProps }) {
   const { theme, resolvedTheme } = useTheme()
