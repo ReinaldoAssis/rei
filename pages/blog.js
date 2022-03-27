@@ -29,10 +29,30 @@ export async function getStaticProps() {
     totalPages: Math.ceil(_posts.length + devblogs.length / POSTS_PER_PAGE),
   }
 
-  return { props: { _posts, pagination, devblogs } }
+  const allBlogs = devblogs
+    .map((x) => {
+      return {
+        date: x.created_at,
+        blog: x,
+        isDevTo: true,
+        fields: { title: x.title, resumo: x.description, tags: x.tag_list, date: x.created_at },
+      }
+    })
+    .concat(
+      _posts.map((x) => {
+        return { date: x.fields.date, blog: x, isDevTO: false, fields: x.fields }
+      })
+    )
+
+  //console.log('!!! devto !!!')
+  //console.log(devblogs)
+  console.log('!!! all blogs !!!')
+  console.log(allBlogs)
+
+  return { props: { devblogs, pagination } }
 }
 
-export default function Blog({ _posts, pagination, devblogs }) {
+export default function Blog({ devblogs, pagination }) {
   return (
     <>
       <PageSeo
@@ -46,12 +66,11 @@ export default function Blog({ _posts, pagination, devblogs }) {
         transition={{ duration: d, ease: 'easeOut' }}
       >
         <TemplateBlogs
-          posts={_posts.slice(0, POSTS_PER_PAGE)}
+          posts={devblogs.slice(0, POSTS_PER_PAGE)}
           pagination={pagination}
-          allPosts={_posts}
+          allPosts={devblogs}
           title="All Posts"
           d={d}
-          devtoBlogs={devblogs}
         ></TemplateBlogs>
       </motion.div>
     </>
