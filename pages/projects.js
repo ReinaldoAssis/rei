@@ -16,7 +16,7 @@ export async function getStaticProps() {
 
   const res = await client.getEntries({ content_type: 'projects' })
   const projects = res.items
-  console.log(projects)
+  //console.log(projects)
 
   var projectsData = []
   projects.map((p) => {
@@ -26,7 +26,7 @@ export async function getStaticProps() {
       href: '' + p.fields.url,
       imgSrc: 'https:' + p.fields.thumbnail.fields.file.url,
     })
-    console.log(p.fields.title)
+    //console.log(p.fields.title)
   })
 
   return { props: { projectsData } }
@@ -40,7 +40,12 @@ export default function Projects({ projectsData }) {
         description={siteMetadata.description}
         url={`${siteMetadata.siteUrl}/projects`}
       />
-      <motion.div initial={{opacity:0, y:-200}} animate={{opacity:1,y:0}} transition={{duration:d, ease:"easeOut"}} className="divide-y divide-gray-200 dark:divide-gray-700">
+      <motion.div
+        initial={{ opacity: 0, y: -200 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: d, ease: 'easeOut' }}
+        className="divide-y divide-gray-200 dark:divide-gray-700"
+      >
         <div className="pt-6 pb-8 space-y-2 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             Projects
@@ -56,7 +61,7 @@ export default function Projects({ projectsData }) {
                 description={d.description}
                 imgSrc={d.imgSrc}
                 href={d.href}
-                delay={0.3+p*0.2}
+                delay={0.3 + p * 0.2}
               />
             ))}
           </div>

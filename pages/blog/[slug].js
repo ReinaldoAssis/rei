@@ -18,8 +18,8 @@ async function getPosts() {
 
 export async function getStaticPaths() {
   const _posts = await getPosts()
-  console.log('posts')
-  console.log(_posts)
+  //console.log('posts')
+  //console.log(_posts)
 
   const paths = _posts.map((v) => {
     const f = v.fields
@@ -64,7 +64,7 @@ export async function getStaticProps(context) {
 }
 
 const Post = ({ post }) => {
-  console.log(post)
+  //console.log(post)
 
   const component = {
     title: post.fields.title,
@@ -109,7 +109,7 @@ const Post = ({ post }) => {
             />
           )
         } else {
-          console.log(node.content[0].value)
+          //console.log(node.content[0].value)
           return (
             <a href={node.data.uri} target="_blank">
               {node.content[0].value}
