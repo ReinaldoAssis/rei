@@ -196,7 +196,10 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                     <div className="space-y-3 xl:col-span-3 flex-shrink flex-1">
                       <div>
                         <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                          <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+                          <Link
+                            href={frontMatter.fields.url ?? `/blog/${slug}`}
+                            className="text-gray-900 dark:text-gray-100"
+                          >
                             {title == null ? 'Undefined' : title}
                           </Link>
                         </h3>

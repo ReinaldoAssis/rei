@@ -41,6 +41,7 @@ export async function getStaticProps() {
             date: x.created_at,
             tags: x.tag_list.toString(),
             resumo: x.description,
+            url: x.url,
             thumbnail: {
               fields: {
                 file: {
