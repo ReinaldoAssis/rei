@@ -117,6 +117,9 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d, d
               />
             </svg>
           </div>
+          <h4 className="font-bold" style={{ color: '#28385c' }}>
+            <Link href={'/subscribe'}>Subscribe to Newsletter</Link>
+          </h4>
         </div>
         <ul>
           {/* {!filteredBlogPosts.length && 'No posts found.'} */}
