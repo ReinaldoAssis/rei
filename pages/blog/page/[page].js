@@ -34,7 +34,41 @@ export async function getStaticProps(context) {
   } = context
   // const posts = await getAllFilesFrontMatter('blog')
 
-  const _posts = await getPosts()
+  let _posts = await getPosts()
+
+  let devblogs
+  const devtoAPI = await fetch('https://dev.to/api/articles?username=reinaldoassis').then(
+    async (r) => (devblogs = await r.json())
+  )
+
+  const unifiedBlogs = _posts
+    .concat(
+      devblogs.map((x, i) => {
+        return {
+          sys: {
+            id: x.id,
+          },
+          fields: {
+            title: x.title,
+            date: x.created_at,
+            tags: x.tag_list.toString(),
+            resumo: x.description,
+            thumbnail: {
+              fields: {
+                file: {
+                  url: x.cover_image,
+                },
+              },
+            },
+          },
+        }
+      })
+    )
+    .sort(function (a, b) {
+      return new Date(b.fields.date) - new Date(a.fields.date)
+    })
+
+  _posts = unifiedBlogs
 
   const pageNumber = parseInt(page)
   const initialDisplayPosts = _posts.slice(

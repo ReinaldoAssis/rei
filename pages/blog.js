@@ -16,7 +16,7 @@ export async function getStaticProps() {
   const client = createClient({ space: space, accessToken: content_token })
 
   const res = await client.getEntries({ content_type: 'blog' })
-  const _posts = res.items
+  let _posts = res.items
 
   //************** FETCHING BLOGS FROM DEV.TO ************** */
   let devblogs
@@ -26,13 +26,44 @@ export async function getStaticProps() {
 
   const pagination = {
     currentPage: 1,
-    totalPages: Math.ceil(_posts.length / POSTS_PER_PAGE),
-  } //+ devblogs.length
+    totalPages: Math.ceil((_posts.length + devblogs.length) / POSTS_PER_PAGE),
+  }
 
-  return { props: { _posts, pagination, devblogs } }
+  const unifiedBlogs = _posts
+    .concat(
+      devblogs.map((x, i) => {
+        return {
+          sys: {
+            id: x.id,
+          },
+          fields: {
+            title: x.title,
+            date: x.created_at,
+            tags: x.tag_list.toString(),
+            resumo: x.description,
+            thumbnail: {
+              fields: {
+                file: {
+                  url: x.cover_image,
+                },
+              },
+            },
+          },
+        }
+      })
+    )
+    .sort(function (a, b) {
+      return new Date(b.fields.date) - new Date(a.fields.date)
+    })
+
+  _posts = unifiedBlogs
+
+  //console.log(unifiedBlogs)
+
+  return { props: { _posts, pagination } }
 }
 
-export default function Blog({ _posts, pagination, devblogs }) {
+export default function Blog({ _posts, pagination }) {
   return (
     <>
       <PageSeo
@@ -51,7 +82,6 @@ export default function Blog({ _posts, pagination, devblogs }) {
           allPosts={_posts}
           title="All Posts"
           d={d}
-          devtoBlogs={devblogs}
         ></TemplateBlogs>
       </motion.div>
     </>

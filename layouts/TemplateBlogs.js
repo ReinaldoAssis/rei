@@ -38,7 +38,7 @@ function formatDateFilter(_date) {
 }
 
 let isInSyncWithQuery = true //enquanto o usuario nao mudar o texto de pesquisa, isso permanece true
-export default function TemplateBlogs({ posts, title, allPosts, pagination, d, devtoBlogs }) {
+export default function TemplateBlogs({ posts, title, allPosts, pagination, d }) {
   const [searchValue, setSearchValue] = useState('')
 
   const router = useRouter()
@@ -123,208 +123,120 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d, d
         </div>
         <ul>
           {/* {!filteredBlogPosts.length && 'No posts found.'} */}
-          {devtoBlogs
-            .map((info, p) => {
-              GLOBAL_INDEX++
-              return (
-                <li key={info.slug} className="py-4">
-                  <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                    <motion.div
-                      initial={{ opacity: 0, x: -90 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        duration: 0.5,
-                        ease: 'easeOut',
-                        delay: 0.3 + (GLOBAL_INDEX - 1) * 0.2,
+
+          {displayPosts.map((frontMatter, p) => {
+            // console.log('List blog!')
+            // console.log(frontMatter.fields)
+            GLOBAL_INDEX++
+
+            const { title, resumo, tags } = frontMatter.fields
+            const date =
+              frontMatter.fields.date == null ? '03-01-1964' : formatDate(frontMatter.fields.date)
+            const slug =
+              (title == null ? '' : title).replace(' ', '-').replace(/[^a-zA-Z- ]/g, '') +
+              '-' +
+              date.replace(/\//g, '-') +
+              '-id=' +
+              frontMatter.sys.id
+
+            const _tags = tags.replace('-', ' ').split(',')
+
+            const null_url =
+              'images.ctfassets.net/jpwvbht1tkjo/6PvPUA7gD3Zcv6Ti6WXnUB/463b9bc848f8e5de1c02c1401c69b255/null.jpg?h=250'
+            var thumb = {
+              file: { url: null_url, details: { image: { width: 900, height: 900 } } },
+            }
+            try {
+              thumb = frontMatter.fields.thumbnail.fields
+            } catch {}
+
+            return (
+              <li key={slug} className="py-4">
+                <article className="space-y-2 xl:space-y-0 xl:items-baseline">
+                  <motion.div
+                    initial={{ opacity: 0, x: -90 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      ease: 'easeOut',
+                      delay: 0.3 + (GLOBAL_INDEX - 1) * 0.2,
+                    }}
+                    className="flex flex-wrap content-center"
+                  >
+                    <div
+                      className="thumbnail flex-initial shadow-md mr-5"
+                      onClick={() => {
+                        router.push(`/blog/${slug}`)
                       }}
-                      className="flex flex-wrap content-center"
                     >
-                      <div
-                        className="thumbnail flex-initial shadow-md mr-5"
-                        onClick={() => {
-                          router.push(`/blog/${info.slug}`)
-                        }}
-                      >
-                        <Image
-                          src={info.cover_image}
-                          width={200}
-                          height={200}
-                          className="rounded-lg"
-                          objectFit="cover"
-                        />
-                        <div className="justify-self-center">
-                          <dl>
-                            <dt className="sr-only">Published on</dt>
-                            <div className="textodataMobile sr-only mb-8">
-                              <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                <time dateTime={info.created_at}>
-                                  {new Date(info.created_at).toLocaleDateString()}
-                                </time>
-                              </dd>
-                            </div>
-                          </dl>
-                        </div>
-                      </div>
-                      <div className="space-y-3 xl:col-span-3 flex-shrink flex-1">
-                        <div>
-                          <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link href={`${info.url}`} className="text-gray-900 dark:text-gray-100">
-                              {info.title == null ? 'Undefined' : info.title}
-                            </Link>
-                          </h3>
-                          <div
-                            className="flex flex-wrap"
-                            onClick={() => {
-                              isInSyncWithQuery = true
-                            }}
-                          >
-                            {info.tag_list.map((tag) => (
-                              <Tag
-                                key={tag}
-                                text={tag.replace('-', ' ')}
-                                isInSyncWithQuery={isInSyncWithQuery}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                        <div className="prose text-gray-500 max-w-none dark:text-gray-400 break-words">
-                          {info.description}
-                        </div>
-                      </div>
-                      <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <div className="textodata">
-                          <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                            <time dateTime={info.created_at}>
-                              {new Date(info.created_at).toLocaleDateString(
-                                siteMetadata.locale,
-                                postDateTemplate
-                              )}
-                            </time>
-                          </dd>
-                        </div>
-                      </dl>
-                    </motion.div>
-                  </article>
-                </li>
-              )
-            })
-            .concat(
-              displayPosts.map((frontMatter, p) => {
-                // console.log('List blog!')
-                // console.log(frontMatter.fields)
-                GLOBAL_INDEX++
-
-                const { title, resumo, tags } = frontMatter.fields
-                const date =
-                  frontMatter.fields.date == null
-                    ? '03-01-1964'
-                    : formatDate(frontMatter.fields.date)
-                const slug =
-                  (title == null ? '' : title).replace(' ', '-').replace(/[^a-zA-Z- ]/g, '') +
-                  '-' +
-                  date.replace(/\//g, '-') +
-                  '-id=' +
-                  frontMatter.sys.id
-
-                const _tags = tags.replace('-', ' ').split(',')
-
-                const null_url =
-                  'images.ctfassets.net/jpwvbht1tkjo/6PvPUA7gD3Zcv6Ti6WXnUB/463b9bc848f8e5de1c02c1401c69b255/null.jpg?h=250'
-                var thumb = {
-                  file: { url: null_url, details: { image: { width: 900, height: 900 } } },
-                }
-                try {
-                  thumb = frontMatter.fields.thumbnail.fields
-                } catch {}
-
-                return (
-                  <li key={slug} className="py-4">
-                    <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                      <motion.div
-                        initial={{ opacity: 0, x: -90 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                          duration: 0.5,
-                          ease: 'easeOut',
-                          delay: 0.3 + (GLOBAL_INDEX - 1) * 0.2,
-                        }}
-                        className="flex flex-wrap content-center"
-                      >
-                        <div
-                          className="thumbnail flex-initial shadow-md mr-5"
-                          onClick={() => {
-                            router.push(`/blog/${slug}`)
-                          }}
-                        >
-                          <Image
-                            src={'https:' + thumb.file.url}
-                            //width={10}
-                            //height={80}
-                            width={thumb.file.details.image.width}
-                            height={thumb.file.details.image.height}
-                            className="rounded-lg"
-                            objectFit="cover"
-                          />
-                          <div className="justify-self-center">
-                            <dl>
-                              <dt className="sr-only">Published on</dt>
-                              <div className="textodataMobile sr-only mb-8">
-                                <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                  <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
-                                </dd>
-                              </div>
-                            </dl>
-                          </div>
-                        </div>
-                        <div className="space-y-3 xl:col-span-3 flex-shrink flex-1">
-                          <div>
-                            <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                              <Link
-                                href={`/blog/${slug}`}
-                                className="text-gray-900 dark:text-gray-100"
-                              >
-                                {title == null ? 'Undefined' : title}
-                              </Link>
-                            </h3>
-                            <div
-                              className="flex flex-wrap"
-                              onClick={() => {
-                                isInSyncWithQuery = true
-                              }}
-                            >
-                              {_tags.map((tag) => (
-                                <Tag
-                                  key={tag}
-                                  text={tag.replace('-', ' ')}
-                                  isInSyncWithQuery={isInSyncWithQuery}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                          <div className="prose text-gray-500 max-w-none dark:text-gray-400 break-words">
-                            {resumo}
-                          </div>
-                        </div>
+                      <Image
+                        src={
+                          thumb.file.url.includes('https:')
+                            ? thumb.file.url
+                            : 'https:' + thumb.file.url
+                        }
+                        width={200}
+                        height={200}
+                        //width={thumb.file.details.image.width}
+                        //height={thumb.file.details.image.height}
+                        className="rounded-lg"
+                        objectFit="cover"
+                      />
+                      <div className="justify-self-center">
                         <dl>
                           <dt className="sr-only">Published on</dt>
-                          <div className="textodata">
+                          <div className="textodataMobile sr-only mb-8">
                             <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                              <time dateTime={date}>
-                                {new Date(date).toLocaleDateString(
-                                  siteMetadata.locale,
-                                  postDateTemplate
-                                )}
-                              </time>
+                              <time dateTime={date}>{new Date(date).toLocaleDateString()}</time>
                             </dd>
                           </div>
                         </dl>
-                      </motion.div>
-                    </article>
-                  </li>
-                )
-              })
-            )}
+                      </div>
+                    </div>
+                    <div className="space-y-3 xl:col-span-3 flex-shrink flex-1">
+                      <div>
+                        <h3 className="text-2xl font-bold leading-8 tracking-tight">
+                          <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+                            {title == null ? 'Undefined' : title}
+                          </Link>
+                        </h3>
+                        <div
+                          className="flex flex-wrap"
+                          onClick={() => {
+                            isInSyncWithQuery = true
+                          }}
+                        >
+                          {_tags.map((tag) => (
+                            <Tag
+                              key={tag}
+                              text={tag.replace('-', ' ')}
+                              isInSyncWithQuery={isInSyncWithQuery}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="prose text-gray-500 max-w-none dark:text-gray-400 break-words">
+                        {resumo}
+                      </div>
+                    </div>
+                    <dl>
+                      <dt className="sr-only">Published on</dt>
+                      <div className="textodata">
+                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                          <time dateTime={date}>
+                            {new Date(date).toLocaleDateString(
+                              siteMetadata.locale,
+                              postDateTemplate
+                            )}
+                          </time>
+                        </dd>
+                      </div>
+                    </dl>
+                  </motion.div>
+                </article>
+              </li>
+            )
+          })}
         </ul>
       </div>
 
