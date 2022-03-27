@@ -26,7 +26,7 @@ export async function getStaticProps() {
 
   const pagination = {
     currentPage: 1,
-    totalPages: Math.ceil(_posts.length + devblogs.length / POSTS_PER_PAGE),
+    totalPages: Math.ceil((_posts.length + devblogs.length) / POSTS_PER_PAGE),
   }
 
   return { props: { _posts, pagination, devblogs } }
