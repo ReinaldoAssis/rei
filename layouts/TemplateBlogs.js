@@ -36,7 +36,7 @@ function formatDateFilter(_date) {
 }
 
 let isInSyncWithQuery = true //enquanto o usuario nao mudar o texto de pesquisa, isso permanece true
-export default function TemplateBlogs({ posts, title, allPosts, pagination, d }) {
+export default function TemplateBlogs({ posts, title, allPosts, pagination, d, devtoBlogs }) {
   const [searchValue, setSearchValue] = useState('')
 
   const router = useRouter()
@@ -118,6 +118,86 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
         </div>
         <ul>
           {/* {!filteredBlogPosts.length && 'No posts found.'} */}
+          {devtoBlogs.map((info, p) => {
+            return (
+              <li key={info.slug} className="py-4">
+                <article className="space-y-2 xl:space-y-0 xl:items-baseline">
+                  <motion.div
+                    initial={{ opacity: 0, x: -90 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 + p * 0.2 }}
+                    className="flex flex-wrap content-center"
+                  >
+                    <div
+                      className="thumbnail flex-initial shadow-md mr-5"
+                      onClick={() => {
+                        router.push(`/blog/${info.slug}`)
+                      }}
+                    >
+                      <Image
+                        src={info.cover_image}
+                        width={200}
+                        height={200}
+                        className="rounded-lg"
+                        objectFit="cover"
+                      />
+                      <div className="justify-self-center">
+                        <dl>
+                          <dt className="sr-only">Published on</dt>
+                          <div className="textodataMobile sr-only mb-8">
+                            <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                              <time dateTime={info.created_at}>
+                                {new Date(info.created_at).toLocaleDateString()}
+                              </time>
+                            </dd>
+                          </div>
+                        </dl>
+                      </div>
+                    </div>
+                    <div className="space-y-3 xl:col-span-3 flex-shrink flex-1">
+                      <div>
+                        <h3 className="text-2xl font-bold leading-8 tracking-tight">
+                          <Link href={`${info.url}`} className="text-gray-900 dark:text-gray-100">
+                            {info.title == null ? 'Undefined' : info.title}
+                          </Link>
+                        </h3>
+                        <div
+                          className="flex flex-wrap"
+                          onClick={() => {
+                            isInSyncWithQuery = true
+                          }}
+                        >
+                          {info.tag_list.map((tag) => (
+                            <Tag
+                              key={tag}
+                              text={tag.replace('-', ' ')}
+                              isInSyncWithQuery={isInSyncWithQuery}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="prose text-gray-500 max-w-none dark:text-gray-400 break-words">
+                        {info.description}
+                      </div>
+                    </div>
+                    <dl>
+                      <dt className="sr-only">Published on</dt>
+                      <div className="textodata">
+                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                          <time dateTime={info.created_at}>
+                            {new Date(info.created_at).toLocaleDateString(
+                              siteMetadata.locale,
+                              postDateTemplate
+                            )}
+                          </time>
+                        </dd>
+                      </div>
+                    </dl>
+                  </motion.div>
+                </article>
+              </li>
+            )
+          })}
           {displayPosts.map((frontMatter, p) => {
             // console.log('List blog!')
             // console.log(frontMatter.fields)
@@ -162,6 +242,7 @@ export default function TemplateBlogs({ posts, title, allPosts, pagination, d })
                         width={thumb.file.details.image.width}
                         height={thumb.file.details.image.height}
                         className="rounded-lg"
+                        objectFit="cover"
                       />
                       <div className="justify-self-center">
                         <dl>
