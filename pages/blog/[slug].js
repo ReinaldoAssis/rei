@@ -129,13 +129,20 @@ const Post = ({ post }) => {
   const child = documentToReactComponents(post.fields.text, options)
 
   return (
-    <div>
-      {/* <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
+    <>
+      <head>
+        <meta property="og:url" content={`${component.title} - Reinaldo Assis`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${component.title} - Reinaldo Assis`} />
+      </head>
+      <div>
+        {/* <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
         {post.fields.title}
       </h2> */}
-      {/* <div className="Texto">{}</div> */}
-      <PostLayout frontMatter={component} children={child} />
-    </div>
+        {/* <div className="Texto">{}</div> */}
+        <PostLayout frontMatter={component} children={child} />
+      </div>
+    </>
   )
 }
 
