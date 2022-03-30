@@ -129,7 +129,7 @@ const Post = ({ post, slug }) => {
             style={{ marginRight: 'auto', marginLeft: 'auto' }}
             alt={alt}
             src={url}
-            width={size.height > 500 ? size.width - 200 : 'auto'}
+            width={size.height > 500 ? size.width - 200 : size.width}
           />
         )
       },
