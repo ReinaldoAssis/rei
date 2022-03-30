@@ -5,7 +5,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import PostLayout from '@/layouts/PostLayout'
 import IframeContainer from '@/components/IframeContainer'
 import { INLINES } from '@contentful/rich-text-types'
-import { PageSeo } from '@/components/SEO'
+import { BlogSeo } from '@/components/SEO'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
@@ -73,6 +73,7 @@ const Post = ({ post, slug }) => {
     date: post.fields.date,
     description: post.fields.resumo,
     slug: '',
+    thumb: 'https:' + post.thumbnail.fields.file.url,
   }
 
   const options = {
@@ -132,7 +133,15 @@ const Post = ({ post, slug }) => {
 
   return (
     <>
-      <PageSeo title={component.title} description={component.description} url={`${slug}`} />
+      <BlogSeo
+        title={component.title}
+        summary={component.description}
+        url={`${siteMetadata.siteUrl}`}
+        date={component.date}
+        lastmod={component.date}
+        tags={component.tags}
+        images={[component.thumb]}
+      />
       <div>
         {/* <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
         {post.fields.title}

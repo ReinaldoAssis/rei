@@ -59,7 +59,7 @@ export const BlogSeo = ({ title, summary, date, lastmod, url, tags, images = [] 
 
   const featuredImages = imagesArr.map((img) => {
     return {
-      url: `${siteMetadata.siteUrl}${img}`,
+      url: img, //`${siteMetadata.siteUrl}${img}`,
       alt: title,
     }
   })
@@ -85,7 +85,7 @@ export const BlogSeo = ({ title, summary, date, lastmod, url, tags, images = [] 
         }}
         additionalMetaTags={[
           {
-            name: 'twitter:image',
+            //name: 'twitter:image',
             content: featuredImages[0].url,
           },
         ]}
