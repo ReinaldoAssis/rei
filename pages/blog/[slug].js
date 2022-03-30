@@ -5,6 +5,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import PostLayout from '@/layouts/PostLayout'
 import IframeContainer from '@/components/IframeContainer'
 import { INLINES } from '@contentful/rich-text-types'
+import { PageSeo } from '@/components/SEO'
 
 const space = process.env.CONTENTFUL_SPACE_ID
 const content_token = process.env.CONTENTFUL_TOKEN
