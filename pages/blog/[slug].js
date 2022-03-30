@@ -60,16 +60,17 @@ export async function getStaticProps(context) {
     'sys.id': _id,
   })
 
-  return { props: { post: items[0] } }
+  return { props: { post: items[0], slug: params.slug } }
 }
 
-const Post = ({ post }) => {
+const Post = ({ post, slug }) => {
   //console.log(post)
 
   const component = {
     title: post.fields.title,
     tags: post.fields.tags.split(','),
     date: post.fields.date,
+    description: post.fields.resumo,
     slug: '',
   }
 
@@ -130,11 +131,7 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <head>
-        <meta property="og:url" content={`${component.title} - Reinaldo Assis`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`${component.title} - Reinaldo Assis`} />
-      </head>
+      <PageSeo title={component.title} description={component.description} url={`${slug}`} />
       <div>
         {/* <h2 className="text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
         {post.fields.title}
