@@ -65,7 +65,7 @@ export async function getStaticProps(context) {
 }
 
 const Post = ({ post, slug }) => {
-  //console.log(post)
+  console.log(post)
 
   const component = {
     title: post.fields.title,
@@ -73,7 +73,7 @@ const Post = ({ post, slug }) => {
     date: post.fields.date,
     description: post.fields.resumo,
     slug: '',
-    thumb: 'https:' + post.thumbnail.fields.file.url,
+    thumb: 'https:' + post.fields.thumbnail.fields.file.url,
   }
 
   const options = {
